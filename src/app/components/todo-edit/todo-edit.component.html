@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <div class="card card-body">
+    <form>
+      <div class="form-group">
+        <label for="userId">UserId</label>
+        <input type="number"
+               name="userId"
+               id="userId"
+               class="form-control"
+               [ngModel]='todo?.userId'
+               (ngModelChange)="todo.userId = $event"
+               required
+               [readonly]="isReadOnly"
+        >
+      </div>
+      <!-- /.form-group -->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text"
+               name="title"
+               id="title"
+               class="form-control"
+               [ngModel]='todo?.title'
+               (ngModelChange)="todo.title = $event"
+               required
+               [readonly]="isReadOnly"
+        >
+      </div>
+      <!-- /.form-group -->
+      <div class="form-group">
+        <label for="completed">Completed</label>
+        <input type="text"
+               name="completed"
+               id="completed"
+               class="form-control"
+               [ngModel]='todo?.completed'
+               (ngModelChange)="todo.completed = $event"
+               required
+               [readonly]="isReadOnly"
+        >
+      </div>
+      <!-- /.form-group -->
+      <button  class="btn btn-outline-primary mr-3" *ngIf="isReadOnly" (click)="isReadOnly = false">Edit</button>
+      <button  class="btn btn-outline-primary" *ngIf="!isReadOnly" (click)="onEditTodo()">Save</button>
+    </form>
+    <!-- /.form -->
+  </div>
+  <!-- /.card card-body -->
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    loadingText="Loading..."
+    type="ball-scale-multiple">
+  </ngx-spinner>
+</div>
+
