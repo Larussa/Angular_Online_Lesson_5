@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  todos: Todo[];
+  private todos: Todo[];
+
   constructor(
     public todoService: TodosService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private router: Router
   ) {}
 
   ngOnInit() {
     this.spinner.show();
     this.todoService.getTodos().subscribe((data: Todo[]) => this.todos = data,
-    () => this.toastr.error('An error occurred!'),
+       () => this.toastr.error('An error occurred!'),
     () => this.spinner.hide());
   }
 
@@ -32,9 +32,8 @@ export class TodosComponent implements OnInit {
       this.todos = this.todos.filter(todo => todo.id != id);
       this.toastr.success("Todo was successfully deleted", "Info");
       this.spinner.hide();
-    }, () => {
-      this.spinner.hide();
-      this.toastr.error("Todo not deleted", "Error");
-    });
+    },   () => this.toastr.error('Todo not deleted!', 'Error'),
+      () => this.spinner.hide()
+    );
   }
 }

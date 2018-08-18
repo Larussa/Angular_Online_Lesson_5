@@ -11,6 +11,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./todo-edit.component.css']
 })
 export class TodoEditComponent implements OnInit {
+  private todoId: string;
   todo: Todo;
   isReadOnly = true;
 
@@ -24,28 +25,30 @@ export class TodoEditComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.todoService.getTodo(this.activatedRoute.snapshot.params['id']).subscribe((todo: Todo) => {
-        this.todo = todo;
-        this.spinner.hide();
-      },
-      () => {
-        this.toastr.error('Error getting data. Redirecting...');
-        setTimeout(() => this.router.navigate(['/']), 2000);
+    this.todoId = this.activatedRoute.snapshot.params['id'];
+    this.todoService.getTodo(this.todoId).subscribe((todo: Todo) => {
+      this.todo = todo;
+    },   () => {
+      this.toastr.error('Error getting data!');
+      setTimeout(() => this.router.navigate(['/']), 1000);
+    },() => {
+      this.spinner.hide();
     });
   }
+
   onEditTodo() {
-    this.isReadOnly = false;
     this.spinner.show();
+    this.isReadOnly = false;
     const updTodo = Object.assign({}, this.todo);
     this.todoService.updateTodo(updTodo).subscribe((response: Todo) => {
       this.spinner.hide();
       this.toastr.success("Todo was successfully edited", "Info");
-      this.router.navigate(['/']);
-    }, error => {
+      setTimeout(() => this.router.navigate(['/']), 1000);
+    },   () => {
+      this.toastr.error("Todo not edited");
+    },() => {
       this.spinner.hide();
-      this.toastr.error("User not edited", "Error");
     });
   }
-
 
 }

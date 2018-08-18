@@ -1,7 +1,9 @@
 <div class="container d-flex justify-content-center mt-5">
-  <div class="col-6 card mb-3 ">
+  <ngx-spinner type="ball-atom" loadingText="Processing ...">
+  </ngx-spinner>
+  <div class="col-6 card mb-3 card-form">
     <div class="card-body">
-      <form (ngSubmit)="addNewTodo(form)" #form = "ngForm">
+      <form (ngSubmit)="addNewTodo()" #form = "ngForm">
         <h4 class="card-title text-center"> Here you can add a new todo</h4>
         <div class="form-row">
           <div class="form-group col-md-12">
@@ -10,8 +12,7 @@
               type="number"
               id="userId"
               class="form-control"
-              [ngModel]='addTodo?.userId'
-              (ngModelChange)="addTodo.userId=$event"
+              [(ngModel)]="addTodo.userId"
               [ngClass]="{'is-invalid':todoUserId.errors && form.submitted}"
               #todoUserId="ngModel"
               name="userId"
@@ -29,37 +30,33 @@
               type="text"
               id="title"
               class="form-control"
-              [ngModel]='addTodo?.title'
-              (ngModelChange)="addTodo.title=$event"
-              [ngClass]="{'is-invalid':postTitle.errors && form.submitted}"
-              #postTitle="ngModel"
-              name="userId"
+              [(ngModel)]='addTodo.title'
+              [ngClass]="{'is-invalid':todoTitle.errors && form.submitted}"
+              #todoTitle="ngModel"
+              name="title"
               required
-              pattern="[0-9]{1,2}"
+              minlength="10"
             >
-            <div class="invalid-feedback" [hidden]="!postTitle.errors?.required">Field UserId required</div>
-            <div class="invalid-feedback" [hidden]="!postTitle.errors?.pattern">Field UserId must be at 2</div>
+            <div class="invalid-feedback" [hidden]="!todoTitle.errors?.required">Field Title required</div>
+            <div class="invalid-feedback" [hidden]="!todoTitle.errors?.minlength">Field Title must be at 10</div>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group  col-md-12">
             <label for="completed">Completed<span>*</span></label>
-            <input
-              type="text"
-              id="completed"
-              class="form-control"
-              [ngModel]='addTodo?.completed'
-              (ngModelChange)="addTodo.completed=$event"
-              [ngClass]="{'is-invalid':todoCompleted.errors && form.submitted}"
-              #todoCompleted="ngModel"
-              name="completed"
-              required
-            >
-            <div class="invalid-feedback" [hidden]="todoCompleted.errors?.required">Field Completed required</div>
+              <div class="form-check form-check-inline ml-3">
+              <input class="form-check-input"
+                     type="checkbox"
+                     value="option1"
+                     name="completed"
+                     id="completed"
+                     [(ngModel)]="addTodo.completed">
+              <label class="form-check-label" for="completed">tick if false</label>
+            </div>
             </div>
         </div>
         <!-- /.form-row-->
-        <button type="submit" routerLink="/" class="btn btn-outline-info mb-3">Add Todo</button>
+        <button type="submit" class="btn btn-outline-info mb-3" [disabled]="form.invalid">Add Todo</button>
         <p><span>*</span> All required fields must be filled out <p>
       </form>
       <!-- ./ form-->

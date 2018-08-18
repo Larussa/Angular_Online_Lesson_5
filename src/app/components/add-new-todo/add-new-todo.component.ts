@@ -16,14 +16,13 @@ export class AddNewTodoComponent implements OnInit {
   public addTodo: Todo = {
     userId: 1,
     title: '',
-    completed: '',
+    completed: false,
   };
-  todos: Todo[];
+
   @ViewChild('form') form: NgForm;
 
   constructor(
     public todoService: TodosService,
-    public activatedRoute: ActivatedRoute,
     public router: Router,
     public toastr: ToastrService,
     private spinner: NgxSpinnerService
@@ -32,14 +31,17 @@ export class AddNewTodoComponent implements OnInit {
   ngOnInit() {
   }
 
-  addNewTodo(form) {
-    if (form.invalid) return;
+  addNewTodo() {
     this.spinner.show();
-    this.todoService.addTodo(Object.assign({}, this.addTodo));
-    console.log(this.addTodo);
-    this.spinner.hide();
-    this.toastr.success("User was successfully edited", "Info");
-    this.router.navigate(['/']);
-    this.form.resetForm();
-    }
+
+    this.todoService.addTodo(this.addTodo).subscribe((newTodo: Todo) => {
+      this.toastr.success(`Todo successfully added.`, 'Success!');
+      this.spinner.hide();
+      this.router.navigate(['/']);
+    },   () => {
+      this.toastr.error('Error getting data.');
+    },() => {
+      this.spinner.hide();
+    });
   }
+}
