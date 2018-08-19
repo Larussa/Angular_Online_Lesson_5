@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from "../../models/Todo";
-import { TodosService}  from "../../services/todos.service";
+import { TodosService }  from "../../services/todos.service";
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TodosService} from "../../services/todos.service";
+import { TodosService } from "../../services/todos.service";
 import { Router } from "@angular/router";
 import { Todo } from "../../models/Todo";
 import { NgForm } from "@angular/forms";
@@ -38,7 +38,7 @@ export class AddNewTodoComponent implements OnInit {
     this.todoService.addTodo((Object.assign({}, this.addTodo))).subscribe((newTodo: Todo) => {
       this.toastr.success(`Todo successfully added.`, 'Success!');
       this.spinner.hide();
-      this.router.navigate(['/']);
+      setTimeout(() => this.router.navigate(['/']), 1000);
     },() => {
       this.toastr.error('Error getting data.');
     },() => {
