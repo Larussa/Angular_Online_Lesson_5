@@ -28,7 +28,7 @@ export class TodoEditComponent implements OnInit {
     this.todoId = this.activatedRoute.snapshot.params['id'];
     this.todoService.getTodo(this.todoId).subscribe((todo: Todo) => {
       this.todo = todo;
-    },   () => {
+    },() => {
       this.toastr.error('Error getting data!');
       setTimeout(() => this.router.navigate(['/']), 1000);
     },() => {
@@ -44,7 +44,7 @@ export class TodoEditComponent implements OnInit {
       this.spinner.hide();
       this.toastr.success("Todo was successfully edited", "Info");
       setTimeout(() => this.router.navigate(['/']), 1000);
-    },   () => {
+    },() => {
       this.toastr.error("Todo not edited");
     },() => {
       this.spinner.hide();
