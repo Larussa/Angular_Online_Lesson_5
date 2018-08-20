@@ -24,25 +24,28 @@ export class AddNewTodoComponent implements OnInit {
 
   constructor(
     public todoService: TodosService,
-    public router: Router,
-    public toastr: ToastrService,
+    private router: Router,
+    private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
   }
 
-  addNewTodo() {
+  addNewTodo(form) {
+    if (form.invalid) return;
     this.spinner.show();
 
     this.todoService.addTodo((Object.assign({}, this.addTodo))).subscribe((newTodo: Todo) => {
       this.toastr.success(`Todo successfully added.`, 'Success!');
-      this.spinner.hide();
-      setTimeout(() => this.router.navigate(['/']), 1000);
-    },() => {
+      this.router.navigate(['/']);
+    }, () => {
       this.toastr.error('Error getting data.');
-    },() => {
+    }, () => {
       this.spinner.hide();
     });
+    this.form.resetForm();
   }
 }
+
+

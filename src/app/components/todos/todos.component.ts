@@ -30,7 +30,6 @@ export class TodosComponent implements OnInit {
     this.todoService.deleteTodo(id).subscribe((data:Object) => {
       this.todos = this.todos.filter(todo => todo.id != id);
       this.toastr.success("Todo was successfully deleted", "Info");
-      this.spinner.hide();
     },() => this.toastr.error('Todo not deleted!', 'Error'),
       () => this.spinner.hide()
     );

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes} from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { AboutComponent } from "./components/about/about.component";
 import { TodosComponent } from "./components/todos/todos.component";

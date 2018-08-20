@@ -17,9 +17,9 @@ export class TodoEditComponent implements OnInit {
 
   constructor(
     public todoService: TodosService,
-    public activatedRoute: ActivatedRoute,
-    public router: Router,
-    public toastr: ToastrService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
@@ -30,7 +30,7 @@ export class TodoEditComponent implements OnInit {
       this.todo = todo;
     },() => {
       this.toastr.error('Error getting data!');
-      setTimeout(() => this.router.navigate(['/']), 1000);
+      this.router.navigate(['/']);
     },() => {
       this.spinner.hide();
     });
@@ -41,9 +41,8 @@ export class TodoEditComponent implements OnInit {
     this.isReadOnly = false;
     const updTodo = Object.assign({}, this.todo);
     this.todoService.updateTodo(updTodo).subscribe((response: Todo) => {
-      this.spinner.hide();
       this.toastr.success("Todo was successfully edited", "Info");
-      setTimeout(() => this.router.navigate(['/']), 1000);
+      this.router.navigate(['/']);
     },() => {
       this.toastr.error("Todo not edited");
     },() => {

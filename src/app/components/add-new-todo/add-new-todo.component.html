@@ -3,7 +3,7 @@
   </ngx-spinner>
   <div class="col-6 card mb-3 card-form">
     <div class="card-body">
-      <form (ngSubmit)="addNewTodo()" #form = "ngForm">
+      <form (ngSubmit)="addNewTodo(form)" #form = "ngForm">
         <h4 class="card-title text-center"> Here you can add a new todo</h4>
         <div class="form-row">
           <div class="form-group col-md-12">
@@ -56,7 +56,7 @@
             </div>
         </div>
         <!-- /.form-row-->
-        <button type="submit" class="btn btn-outline-info mb-3" [disabled]="form.invalid">Add Todo</button>
+        <button type="submit" class="btn btn-outline-info mb-3">Add Todo</button>
         <p><span>*</span> All required fields must be filled out <p>
       </form>
       <!-- ./ form-->
